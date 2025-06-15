@@ -34,6 +34,7 @@ import { USERS_URL } from "./data/constants";
 function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  //로그인 여부
   const [userConfig, setUserConfig] = useState({ user: {}, loggedIn: false });
   const loggedIn = useMemo(() => userConfig.loggedIn, [userConfig]);
 
@@ -97,6 +98,7 @@ function App() {
     }
   }, [loggedIn]);
 
+  //로그인 창을 띄움
   const activateLoginModal = () => {
     hideMenu();
     setIsLoginModalOpen(!isLoginModalOpen);
@@ -140,18 +142,20 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Homepage />} />
-
+{/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+{/* 카트 */}
+{/* Cart - CartItem - CartTotal 트리를 따라 감 */}
           <Route
-            path="/cart"
-            element={
-              <Cart
-                CartItem={
-                  <CartItem
-                    cartTotals={
-                      <CartTotals
-                        className="cart-totals"
-                        isValidLogin={loggedIn}
-                        activateLoginModal={activateLoginModal}
+            path="/cart"                              //https://localhost:3000/cart 
+            element={                                 //cart주소에는 어떤 컴포넌트를 보여줄지 결정
+              <Cart                                   //Cart라는 페이지를 보여주기로 함
+                CartItem={                            //Cart에게 CartItem이라는 이름의 props를 전달
+                  <CartItem                           //넘기려하는 CartItem의 컴포넌트
+                    cartTotals={                      //CartItem에게 cartTotals라는 이름의 props를 전달
+                      <CartTotals                     //넘기려하는 CartTotals의 컴포넌트
+                        className="cart-totals"       //CSS클래스 설정
+                        isValidLogin={loggedIn}       //로그인상태 정보를 넘김(37번째 줄)
+                        activateLoginModal={activateLoginModal}   //로그인 창을 띄우는 함수도 넘김 (101번째 줄)
                       />
                     }
                   />
